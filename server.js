@@ -10,7 +10,7 @@ import fs from "fs";
 import Meeting from "./models/Meeting.js";
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/meetings")
+mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB error:", err));
 
