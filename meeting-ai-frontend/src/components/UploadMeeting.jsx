@@ -14,15 +14,19 @@ function UploadMeeting() {
     formData.append("audio", file);
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/upload", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/upload`, {
         method: "POST",
         body: formData,
       });
       const data = await res.json();
+      if (!res.ok) {
+        alert(data.details || data.error || "Error processing audio");
+        return;
+      }
       setResult(data);
     } catch (err) {
       console.error(err);
-      alert("Error uploading file");
+      alert("Error uploading file. Please try again.");
     } finally {
       setLoading(false);
     }

@@ -5,14 +5,14 @@ function MeetingList() {
   const [expanded, setExpanded] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/meetings")
+    fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/meetings`)
       .then((res) => res.json())
       .then((data) => setMeetings(data))
       .catch((err) => console.error(err));
   }, []);
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/meetings/${id}`, { method: "DELETE" });
+    await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/meetings/${id}`, { method: "DELETE" });
     setMeetings(meetings.filter((m) => m._id !== id));
   };
 
